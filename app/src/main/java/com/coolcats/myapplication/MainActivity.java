@@ -7,12 +7,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import static com.coolcats.myapplication.MainActivity.Operand.DIVISION;
-import static com.coolcats.myapplication.MainActivity.Operand.MINUS;
-import static com.coolcats.myapplication.MainActivity.Operand.MODULUS;
-import static com.coolcats.myapplication.MainActivity.Operand.MULTIPLY;
-import static com.coolcats.myapplication.MainActivity.Operand.NONE;
-import static com.coolcats.myapplication.MainActivity.Operand.PLUS;
+import static java.lang.Math.cos;
+import static java.lang.Math.log10;
+import static java.lang.Math.sin;
+import static java.lang.Math.sqrt;
+import static java.lang.Math.tan;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private double storedValue = 0.0;
     private Operand operand = Operand.NONE;
     private boolean addDot = false;
+    private boolean doReset = false;
 
 
     @Override
@@ -95,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.equals_button:
                 getResult();
+                doReset = true;
                 break;
             case R.id.period_button:
                 String value = calculatorView.getText().toString();
@@ -106,7 +107,62 @@ public class MainActivity extends AppCompatActivity {
                 calculatorView.setText(currentValue+"");
                 break;
 
+            case R.id.sin_button:
+                doSin();
+                break;
+
+            case R.id.cos_button:
+                doCos();
+                break;
+
+            case R.id.tan_button:
+                doTan();
+                break;
+
+            case R.id.log_button:
+                doLog();
+                break;
+
+            case R.id.sqrt_button:
+                doSqrt();
+                break;
+
         }
+    }
+
+    private void doSqrt() {
+        String value = calculatorView.getText().toString();
+        currentValue = Double.parseDouble(value);
+        currentValue = sqrt(currentValue);
+        calculatorView.setText(currentValue+"");
+    }
+
+    private void doLog() {
+        String value = calculatorView.getText().toString();
+        currentValue = Double.parseDouble(value);
+        currentValue = log10(currentValue);
+        calculatorView.setText(currentValue+"");
+    }
+
+    private void doTan() {
+        String value = calculatorView.getText().toString();
+        currentValue = Double.parseDouble(value);
+        currentValue = tan(currentValue);
+        calculatorView.setText(currentValue+"");
+    }
+
+    private void doCos() {
+        String value = calculatorView.getText().toString();
+        currentValue = Double.parseDouble(value);
+        currentValue = cos(currentValue);
+        calculatorView.setText(currentValue+"");
+    }
+
+    private void doSin() {
+        String value = calculatorView.getText().toString();
+        currentValue = Double.parseDouble(value);
+        currentValue = sin(currentValue);
+        calculatorView.setText(currentValue+"");
     }
 
     private void doCalculation(Operand operand) {
@@ -148,6 +204,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setNumber(int num) {
+        if(doReset) {
+            currentValue = 0;
+            doReset = false;
+        }
         if(currentValue == 0 && !addDot){
             calculatorView.setText(""+num);
             currentValue = num;

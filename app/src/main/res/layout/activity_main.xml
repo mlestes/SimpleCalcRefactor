@@ -213,7 +213,7 @@
             android:text="0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/two_button"
-            app:layout_constraintEnd_toEndOf="@id/two_button"
+            app:layout_constraintEnd_toStartOf="@id/three_button"
             />
 
         <androidx.appcompat.widget.AppCompatButton
@@ -239,7 +239,5 @@
             app:layout_constraintTop_toBottomOf="@id/plus_button"
             app:layout_constraintEnd_toEndOf="parent"
             />
-
--->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
