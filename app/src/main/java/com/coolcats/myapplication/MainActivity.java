@@ -7,6 +7,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+
 import static java.lang.Math.cos;
 import static java.lang.Math.log10;
 import static java.lang.Math.sin;
@@ -21,16 +24,16 @@ public class MainActivity extends AppCompatActivity {
         MINUS,
         MULTIPLY,
         MODULUS,
-        DIVISION,
-        EQUALS
+        DIVISION
     }
+    
     private TextView calculatorView;
     private double currentValue = 0.0;
     private double storedValue = 0.0;
     private Operand operand = Operand.NONE;
     private boolean addDot = false;
     private boolean doReset = false;
-
+    DecimalFormat decimalFormat = new DecimalFormat("#.######");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,8 +101,14 @@ public class MainActivity extends AppCompatActivity {
                 doReset = true;
                 break;
             case R.id.period_button:
-                String value = calculatorView.getText().toString();
-                if(value.indexOf('.') == -1) addDot = true;
+                if(doReset){
+                    calculatorView.setText("0");
+                    addDot = true;
+                }
+                else {
+                    String value = calculatorView.getText().toString();
+                    if (value.indexOf('.') == -1) addDot = true;
+                }
                 break;
 
             case R.id.negate_button:
@@ -170,6 +179,7 @@ public class MainActivity extends AppCompatActivity {
         storedValue = currentValue;
         currentValue = 0;
         this.operand = operand;
+        doReset = true;
     }
 
     private void getResult(){
@@ -200,7 +210,9 @@ public class MainActivity extends AppCompatActivity {
         operand = Operand.NONE;
         storedValue = 0;
         currentValue = result;
-        calculatorView.setText(currentValue+"");
+        decimalFormat.setRoundingMode(RoundingMode.UP);
+        if(currentValue % 1 == 0) calculatorView.setText((int) currentValue+"");
+        else calculatorView.setText(decimalFormat.format(currentValue)+"");
     }
 
     private void setNumber(int num) {
@@ -216,13 +228,17 @@ public class MainActivity extends AppCompatActivity {
                 String value = calculatorView.getText().toString() + num;
                 Log.d("TAG_X", value);
                 currentValue = Double.parseDouble(value);
-                calculatorView.setText(value);
+                decimalFormat.setRoundingMode(RoundingMode.UP);
+                if(currentValue % 1 == 0) new DecimalFormat("#").format(currentValue);
+                calculatorView.setText(decimalFormat.format(currentValue)+"");
             }
             else{
                 String value = calculatorView.getText().toString() + "." + num;
                 Log.d("TAG_X", value);
                 currentValue = Double.parseDouble(value);
-                calculatorView.setText(value);
+                decimalFormat.setRoundingMode(RoundingMode.UP);
+                if(currentValue % 1 == 0) calculatorView.setText((int) currentValue);
+                else calculatorView.setText(decimalFormat.format(currentValue)+"");
             }
             addDot = false;
         }
