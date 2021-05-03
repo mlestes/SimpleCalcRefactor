@@ -139,49 +139,40 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void displayNumber() {
+        decimalFormat.setRoundingMode(RoundingMode.UP);
+        if (currentValue % 1 == 0) calculatorView.setText((int) currentValue + "");
+        else calculatorView.setText(decimalFormat.format(currentValue) + "");
+    }
+
     private void doSqrt() {
         String value = calculatorView.getText().toString();
-        currentValue = Double.parseDouble(value);
-        currentValue = sqrt(currentValue);
-        decimalFormat.setRoundingMode(RoundingMode.UP);
-        if(currentValue % 1 == 0) calculatorView.setText((int) currentValue+"");
-        else calculatorView.setText(decimalFormat.format(currentValue)+"");
+        currentValue = sqrt(Double.parseDouble(value));
+        displayNumber();
     }
 
     private void doLog() {
         String value = calculatorView.getText().toString();
-        currentValue = Double.parseDouble(value);
-        currentValue = log10(currentValue);
-        decimalFormat.setRoundingMode(RoundingMode.UP);
-        if(currentValue % 1 == 0) calculatorView.setText((int) currentValue+"");
-        else calculatorView.setText(decimalFormat.format(currentValue)+"");
+        currentValue = log10(Double.parseDouble(value));
+        displayNumber();
     }
 
     private void doTan() {
         String value = calculatorView.getText().toString();
-        currentValue = Double.parseDouble(value);
-        currentValue = tan(currentValue);
-        decimalFormat.setRoundingMode(RoundingMode.UP);
-        if(currentValue % 1 == 0) calculatorView.setText((int) currentValue+"");
-        else calculatorView.setText(decimalFormat.format(currentValue)+"");
+        currentValue = tan(Double.parseDouble(value));
+        displayNumber();
     }
 
     private void doCos() {
         String value = calculatorView.getText().toString();
-        currentValue = Double.parseDouble(value);
-        currentValue = cos(currentValue);
-        decimalFormat.setRoundingMode(RoundingMode.UP);
-        if(currentValue % 1 == 0) calculatorView.setText((int) currentValue+"");
-        else calculatorView.setText(decimalFormat.format(currentValue)+"");
+        currentValue = cos(Double.parseDouble(value));
+        displayNumber();
     }
 
     private void doSin() {
         String value = calculatorView.getText().toString();
-        currentValue = Double.parseDouble(value);
-        currentValue = sin(currentValue);
-        decimalFormat.setRoundingMode(RoundingMode.UP);
-        if(currentValue % 1 == 0) calculatorView.setText((int) currentValue+"");
-        else calculatorView.setText(decimalFormat.format(currentValue)+"");
+        currentValue = sin(Double.parseDouble(value));
+        displayNumber();
     }
 
     private void doCalculation(Operand operand) {
@@ -195,7 +186,6 @@ public class MainActivity extends AppCompatActivity {
     private void getResult(){
 
         double result = 0;
-
         switch (operand){
             case PLUS:
                 result = storedValue + currentValue;
@@ -220,9 +210,7 @@ public class MainActivity extends AppCompatActivity {
         operand = Operand.NONE;
         storedValue = 0;
         currentValue = result;
-        decimalFormat.setRoundingMode(RoundingMode.UP);
-        if(currentValue % 1 == 0) calculatorView.setText((int) currentValue+"");
-        else calculatorView.setText(decimalFormat.format(currentValue)+"");
+        displayNumber();
     }
 
     private void setNumber(int num) {
@@ -234,22 +222,16 @@ public class MainActivity extends AppCompatActivity {
             calculatorView.setText(""+num);
             currentValue = num;
         } else {
+            String value;
             if(!addDot) {
-                String value = calculatorView.getText().toString() + num;
-                Log.d("TAG_X", value);
-                currentValue = Double.parseDouble(value);
-                decimalFormat.setRoundingMode(RoundingMode.UP);
-                if(currentValue % 1 == 0) calculatorView.setText((int) currentValue);
-                calculatorView.setText(decimalFormat.format(currentValue)+"");
+                value = calculatorView.getText().toString() + num;
             }
             else{
-                String value = calculatorView.getText().toString() + "." + num;
-                Log.d("TAG_X", value);
-                currentValue = Double.parseDouble(value);
-                decimalFormat.setRoundingMode(RoundingMode.UP);
-                if(currentValue % 1 == 0) calculatorView.setText((int) currentValue);
-                else calculatorView.setText(decimalFormat.format(currentValue)+"");
+                value = calculatorView.getText().toString() + "." + num;
             }
+            Log.d("TAG_X", value);
+            currentValue = Double.parseDouble(value);
+            displayNumber();
             addDot = false;
         }
     }
