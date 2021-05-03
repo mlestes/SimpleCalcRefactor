@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.negate_button:
                 currentValue *= -1;
-                calculatorView.setText(currentValue+"");
+                calculatorView.setText(decimalFormat.format(currentValue)+"");
                 break;
 
             case R.id.sin_button:
@@ -239,7 +239,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("TAG_X", value);
                 currentValue = Double.parseDouble(value);
                 decimalFormat.setRoundingMode(RoundingMode.UP);
-                if(currentValue % 1 == 0) new DecimalFormat("#").format(currentValue);
+                if(currentValue % 1 == 0) calculatorView.setText((int) currentValue);
                 calculatorView.setText(decimalFormat.format(currentValue)+"");
             }
             else{
