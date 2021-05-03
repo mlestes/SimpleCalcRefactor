@@ -143,35 +143,45 @@ public class MainActivity extends AppCompatActivity {
         String value = calculatorView.getText().toString();
         currentValue = Double.parseDouble(value);
         currentValue = sqrt(currentValue);
-        calculatorView.setText(currentValue+"");
+        decimalFormat.setRoundingMode(RoundingMode.UP);
+        if(currentValue % 1 == 0) calculatorView.setText((int) currentValue+"");
+        else calculatorView.setText(decimalFormat.format(currentValue)+"");
     }
 
     private void doLog() {
         String value = calculatorView.getText().toString();
         currentValue = Double.parseDouble(value);
         currentValue = log10(currentValue);
-        calculatorView.setText(currentValue+"");
+        decimalFormat.setRoundingMode(RoundingMode.UP);
+        if(currentValue % 1 == 0) calculatorView.setText((int) currentValue+"");
+        else calculatorView.setText(decimalFormat.format(currentValue)+"");
     }
 
     private void doTan() {
         String value = calculatorView.getText().toString();
         currentValue = Double.parseDouble(value);
         currentValue = tan(currentValue);
-        calculatorView.setText(currentValue+"");
+        decimalFormat.setRoundingMode(RoundingMode.UP);
+        if(currentValue % 1 == 0) calculatorView.setText((int) currentValue+"");
+        else calculatorView.setText(decimalFormat.format(currentValue)+"");
     }
 
     private void doCos() {
         String value = calculatorView.getText().toString();
         currentValue = Double.parseDouble(value);
         currentValue = cos(currentValue);
-        calculatorView.setText(currentValue+"");
+        decimalFormat.setRoundingMode(RoundingMode.UP);
+        if(currentValue % 1 == 0) calculatorView.setText((int) currentValue+"");
+        else calculatorView.setText(decimalFormat.format(currentValue)+"");
     }
 
     private void doSin() {
         String value = calculatorView.getText().toString();
         currentValue = Double.parseDouble(value);
         currentValue = sin(currentValue);
-        calculatorView.setText(currentValue+"");
+        decimalFormat.setRoundingMode(RoundingMode.UP);
+        if(currentValue % 1 == 0) calculatorView.setText((int) currentValue+"");
+        else calculatorView.setText(decimalFormat.format(currentValue)+"");
     }
 
     private void doCalculation(Operand operand) {
